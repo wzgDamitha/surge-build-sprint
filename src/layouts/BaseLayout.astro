@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { title, description = "A 4-day hackathon by Surge. Build websites with AI. Make them not look like AI built them." } = Astro.props;
+const pageTitle = title === "Surge Build Sprint" ? title : `${title} | Surge Build Sprint`;
+const canonicalUrl = new URL(Astro.url.pathname, "https://surge-build-sprint-production.up.railway.app").href;
 ---
 
 <!doctype html>
@@ -16,9 +18,18 @@ const { title, description = "A 4-day hackathon by Surge. Build websites with AI
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>{title} | Surge Build Sprint</title>
+    <title>{pageTitle}</title>
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
 
     <style is:inline>
       html:not([data-theme]) body { visibility: hidden; }

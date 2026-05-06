@@ -6,7 +6,7 @@ const navLinks = [
   { href: "/faq", label: "FAQ" },
 ];
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
 <header
@@ -22,7 +22,7 @@ const currentPath = Astro.url.pathname;
       </div>
     </a>
 
-    <nav class="hidden md:flex items-center gap-1">
+    <nav class="hidden md:flex items-center gap-1" aria-label="Main navigation">
       {navLinks.map((link) => (
         <a
           href={link.href}
@@ -65,6 +65,7 @@ const currentPath = Astro.url.pathname;
         class="md:hidden w-8 h-8 flex items-center justify-center relative"
         style="color: var(--text-secondary);"
         aria-label="Open menu"
+        aria-expanded="false"
       >
         <span id="icon-hamburger" class="transition-all duration-300">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -110,7 +111,7 @@ const currentPath = Astro.url.pathname;
     </button>
   </div>
 
-  <nav class="flex flex-col p-4 gap-1 flex-1">
+  <nav class="flex flex-col p-4 gap-1 flex-1" aria-label="Mobile navigation">
     {navLinks.map((link, i) => (
       <a
         href={link.href}
@@ -172,6 +173,7 @@ const currentPath = Astro.url.pathname;
       mobileMenu?.classList.remove("translate-x-full");
       backdrop?.classList.remove("opacity-0", "pointer-events-none");
       document.body.style.overflow = "hidden";
+      mobileBtn?.setAttribute("aria-expanded", "true");
 
       if (iconHamburger && iconClose) {
         iconHamburger.style.opacity = "0";
@@ -190,6 +192,7 @@ const currentPath = Astro.url.pathname;
       mobileMenu?.classList.add("translate-x-full");
       backdrop?.classList.add("opacity-0", "pointer-events-none");
       document.body.style.overflow = "";
+      mobileBtn?.setAttribute("aria-expanded", "false");
 
       if (iconHamburger && iconClose) {
         iconHamburger.style.opacity = "1";

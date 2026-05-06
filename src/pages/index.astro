@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import Countdown from "../components/marketing/Countdown.astro";
+import { Eye, Bot, Code2, Gauge, PenLine, Gem } from "lucide-astro";
 
 const targetDate = "2026-05-11T12:00:00+05:30";
 ---
@@ -91,23 +92,36 @@ const targetDate = "2026-05-11T12:00:00+05:30";
   <!-- WHAT WE MEASURE -->
   <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-1 rounded-xl overflow-hidden">
-      {[
-        { label: "Visual Craft", hint: "Does it look human-built?" },
-        { label: "AI Orchestration", hint: "How well did you direct the machine?" },
-        { label: "Engineering", hint: "Schema, components, code clarity." },
-        { label: "Performance", hint: "Lighthouse scores. Real-world feel." },
-        { label: "Content & Copy", hint: "Written, not generated." },
-        { label: "Custom Craft", hint: "The hand-built thing. Does it land?" },
-      ].map((item) => (
-        <div
-          class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]"
-          style="background: var(--bg-elevated);"
-        >
-          <span class="text-surge text-[10px] font-semibold uppercase tracking-widest">&mdash;</span>
-          <h3 class="font-heading font-bold text-base tracking-tight mt-2 mb-1.5">{item.label}</h3>
-          <p class="text-xs leading-relaxed" style="color: var(--text-muted);">{item.hint}</p>
-        </div>
-      ))}
+      <div class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]" style="background: var(--bg-elevated);">
+        <Eye class="text-surge" size={20} />
+        <h3 class="font-heading font-bold text-base tracking-tight mt-3 mb-1.5">Visual Craft</h3>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">Does it look human-built?</p>
+      </div>
+      <div class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]" style="background: var(--bg-elevated);">
+        <Bot class="text-surge" size={20} />
+        <h3 class="font-heading font-bold text-base tracking-tight mt-3 mb-1.5">AI Orchestration</h3>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">How well did you direct the machine?</p>
+      </div>
+      <div class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]" style="background: var(--bg-elevated);">
+        <Code2 class="text-surge" size={20} />
+        <h3 class="font-heading font-bold text-base tracking-tight mt-3 mb-1.5">Engineering</h3>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">Schema, components, code clarity.</p>
+      </div>
+      <div class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]" style="background: var(--bg-elevated);">
+        <Gauge class="text-surge" size={20} />
+        <h3 class="font-heading font-bold text-base tracking-tight mt-3 mb-1.5">Performance</h3>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">Lighthouse scores. Real-world feel.</p>
+      </div>
+      <div class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]" style="background: var(--bg-elevated);">
+        <PenLine class="text-surge" size={20} />
+        <h3 class="font-heading font-bold text-base tracking-tight mt-3 mb-1.5">Content & Copy</h3>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">Written, not generated.</p>
+      </div>
+      <div class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]" style="background: var(--bg-elevated);">
+        <Gem class="text-surge" size={20} />
+        <h3 class="font-heading font-bold text-base tracking-tight mt-3 mb-1.5">Custom Craft</h3>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">The hand-built thing. Does it land?</p>
+      </div>
     </div>
   </section>
 

@@ -33,15 +33,15 @@ import Footer from "../components/layout/Footer.astro";
       <div class="space-y-3">
         {[
           { num: "01", title: "Astro + Strapi, hosted on Railway", desc: "Both frontend and backend live on Railway." },
-          { num: "02", title: "All content editable through Strapi", desc: "During judging, we will change a heading in your Strapi admin and expect to see it on the live site." },
+          { num: "02", title: "Content editable through Strapi", desc: "Your site should support content editing through Strapi. During judging, we may change a heading and expect to see it on the live site." },
           { num: "03", title: "Minimum 4 content types with relations", desc: "At least one relation between content types. Schema design is part of the test." },
           { num: "04", title: "Lighthouse mobile scores >= 95", desc: "Performance, Accessibility, Best Practices, and SEO. Tested on a throttled connection." },
           { num: "05", title: "No pre-built component libraries", desc: "No shadcn, DaisyUI, Material UI, Mantine, Chakra. Tailwind is fine. Headless primitives for a11y are fine." },
           { num: "06", title: "No starter templates", desc: "Beyond create astro defaults. Your first commit gets checked." },
           { num: "07", title: "One custom-craft element", desc: "Something where AI gets you 70% and the last 30% is you. Document which element this is." },
-          { num: "08", title: "Custom font pairing", desc: "No Inter + Inter. Pick fonts deliberately and be ready to justify them." },
+          { num: "08", title: "Custom font pairing", desc: "Be deliberate with your typography and be ready to justify your choices." },
           { num: "09", title: "Full git history", desc: "No squashing, no single end-of-hackathon commit. Commit cadence reveals workflow." },
-          { num: "10", title: "Build the complete site", desc: "Every page in the scraped sitemap must exist. You cannot drop pages to save time." },
+          { num: "10", title: "Build the complete site", desc: "Every page in the scraped sitemap must exist. You cannot drop pages to save time — unless you were told otherwise." },
         ].map((rule) => (
           <div
             class="grid grid-cols-[auto_1fr] gap-5 p-6 rounded-lg border transition-colors hover:bg-[var(--card-hover)]"

@@ -2,7 +2,6 @@
 const navLinks = [
   { href: "/rules", label: "Rules" },
   { href: "/stack", label: "Stack" },
-  { href: "/getting-started", label: "Get Started" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/faq", label: "FAQ" },
 ];
@@ -15,10 +14,8 @@ const currentPath = Astro.url.pathname;
   style="background: var(--nav-bg); border-color: var(--border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);"
 >
   <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
-    <a href="/" class="flex items-center gap-2 group">
-      <svg width="16" height="22" viewBox="0 0 18 24" fill="none" class="transition-transform group-hover:rotate-12">
-        <polygon points="10,0 0,14 8,14 7,24 18,10 10,10" fill="#ED1C24"/>
-      </svg>
+    <a href="/" class="flex items-center gap-2">
+      <img src="/images/surge-bolt.png" alt="" width="20" height="32" />
       <span class="font-heading font-bold text-base tracking-tight">
         surge <span class="text-surge">build sprint</span>
       </span>
@@ -42,6 +39,12 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <div class="flex items-center gap-3">
+      <a
+        href="/getting-started"
+        class="hidden md:inline-flex items-center px-5 py-2 bg-surge text-white font-heading font-bold text-[13px] rounded-full hover:-translate-y-0.5 transition-transform"
+      >
+        Get Started
+      </a>
       <button
         id="theme-toggle"
         class="w-8 h-8 rounded-full border flex items-center justify-center text-xs cursor-pointer transition-colors hover:border-[var(--text-muted)]"
@@ -92,6 +95,12 @@ const currentPath = Astro.url.pathname;
           {link.label}
         </a>
       ))}
+      <a
+        href="/getting-started"
+        class="mx-4 mt-2 py-3 text-center text-sm font-bold text-white bg-surge rounded-lg"
+      >
+        Get Started
+      </a>
     </nav>
   </div>
 </header>

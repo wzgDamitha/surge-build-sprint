@@ -125,3 +125,38 @@ h1, h2, h3, h4, h5, h6 {
 .theme-transition * {
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
 }
+
+/* ============================================
+   FAQ ACCORDION ANIMATION
+   ============================================ */
+details .faq-inner {
+  overflow: hidden;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+details .faq-icon {
+  transition: transform 0.3s ease;
+}
+
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* ============================================
+   SKELETON SHIMMER
+   ============================================ */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 0%,
+    var(--bg-surface-2) 40%,
+    var(--bg-surface) 80%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}

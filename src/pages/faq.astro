@@ -9,7 +9,7 @@ const faqs = [
     items: [
       {
         q: "What is Surge Build Sprint?",
-        a: "A 4-day hackathon by Surge where developers build brochure websites for Colombo Stock Exchange brokers using AI tools. The twist: the result cannot look AI-generated.",
+        a: "A 4-day hackathon by Surge where developers build websites using AI tools. The twist: the result cannot look AI-generated.",
       },
       {
         q: "Is this a team event?",
@@ -17,7 +17,7 @@ const faqs = [
       },
       {
         q: "What do I receive on Day 0?",
-        a: "One showcase website to revamp (a CSE broker or listed company), the fully scraped content (text, structure, image references), and the original site URL for reference.",
+        a: "One showcase website to revamp, the fully scraped content (text, structure, image references), and the original site URL for reference.",
       },
       {
         q: "Do I get brand guidelines or design files?",
@@ -59,7 +59,7 @@ const faqs = [
       },
       {
         q: "What if my assigned site is really boring?",
-        a: "That's the point. Brokerage sites are conservative by genre. Escaping the template within tight constraints is the actual test.",
+        a: "That's the point. Some assigned sites are conservative by nature. Escaping the template within tight constraints is the actual test.",
       },
       {
         q: "Do I need to use Railway specifically?",
@@ -126,7 +126,7 @@ const faqs = [
             {section.items.map((faq, i) => (
               <details
                 class:list={[
-                  "group",
+                  "faq-details",
                   i > 0 && "border-t",
                 ]}
                 style={i > 0 ? "border-color: var(--border);" : ""}
@@ -134,16 +134,18 @@ const faqs = [
                 <summary class="flex items-start justify-between gap-4 p-5 cursor-pointer select-none transition-colors hover:bg-[var(--card-hover)] list-none [&::-webkit-details-marker]:hidden">
                   <span class="font-heading font-semibold text-[15px] leading-snug">{faq.q}</span>
                   <span
-                    class="shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-xs transition-transform group-open:rotate-45"
+                    class="faq-icon shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-xs"
                     style="border-color: var(--border); color: var(--text-muted);"
                   >
                     +
                   </span>
                 </summary>
-                <div class="px-5 pb-6 pt-1">
-                  <p class="text-[13px] leading-[1.8]" style="color: var(--text-secondary);">
-                    {faq.a}
-                  </p>
+                <div class="faq-inner">
+                  <div class="px-5 pb-6 pt-3">
+                    <p class="text-[13px] leading-[1.8]" style="color: var(--text-secondary);">
+                      {faq.a}
+                    </p>
+                  </div>
                 </div>
               </details>
             ))}
@@ -161,18 +163,62 @@ const faqs = [
     >
       <h3 class="font-heading font-bold text-xl tracking-tight mb-2">Still have questions?</h3>
       <p class="text-xs mb-6" style="color: var(--text-secondary);">
-        Reach out to the Surge team directly.
+        Reach out to your team lead directly.
       </p>
       <a
-        href="https://surge.global"
+        href="https://chat.google.com/"
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center px-7 py-3 bg-surge text-white font-heading font-bold text-sm rounded-full hover:-translate-y-0.5 hover:shadow-lg transition-all"
       >
-        Contact Surge
+        Contact Your Team Lead
       </a>
     </div>
   </section>
 
   <Footer slot="footer" />
 </BaseLayout>
+
+<script>
+  function initFaqAccordion() {
+    document.querySelectorAll('.faq-details').forEach((details) => {
+      const summary = details.querySelector('summary')!;
+      const inner = details.querySelector('.faq-inner') as HTMLElement;
+
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (details.open) {
+          const height = inner.scrollHeight;
+          inner.style.height = height + 'px';
+          inner.style.opacity = '1';
+          requestAnimationFrame(() => {
+            inner.style.height = '0';
+            inner.style.opacity = '0';
+          });
+          inner.addEventListener('transitionend', () => {
+            details.removeAttribute('open');
+            inner.style.height = '';
+            inner.style.opacity = '';
+          }, { once: true });
+        } else {
+          details.setAttribute('open', '');
+          const height = inner.scrollHeight;
+          inner.style.height = '0';
+          inner.style.opacity = '0';
+          requestAnimationFrame(() => {
+            inner.style.height = height + 'px';
+            inner.style.opacity = '1';
+          });
+          inner.addEventListener('transitionend', () => {
+            inner.style.height = '';
+            inner.style.opacity = '';
+          }, { once: true });
+        }
+      });
+    });
+  }
+
+  initFaqAccordion();
+  document.addEventListener('astro:after-swap', initFaqAccordion);
+</script>

@@ -8,7 +8,7 @@ const steps = [
     num: "01",
     title: "Scaffold Astro",
     desc: "Start with the minimal template. TypeScript strict, no starter themes.",
-    code: "npm create astro@latest my-broker-site\ncd my-broker-site",
+    code: "npm create astro@latest my-site\ncd my-site",
     notes: [
       "Pick \"Empty\" when prompted for a template",
       "Say yes to TypeScript (strict)",
@@ -30,18 +30,18 @@ const steps = [
     num: "03",
     title: "Set up fonts",
     desc: "Pick a deliberate pairing. Self-host via Fontsource for performance.",
-    code: "npm install @fontsource-variable/inter-tight\nnpm install @fontsource-variable/instrument-sans",
+    code: "npm install @fontsource-variable/your-heading-font\nnpm install @fontsource-variable/your-body-font",
     notes: [
-      "Import fonts in your global.css",
-      "Define --font-heading and --font-body in @theme",
-      "No Inter + Inter. Your font choice is scored.",
+      "Pick two fonts that pair well — heading + body",
+      "Import them in your global CSS and wire them into your theme",
+      "Your font choice is scored. Make it intentional.",
     ],
   },
   {
     num: "04",
     title: "Initialize Strapi",
     desc: "Separate project directory. Strapi runs as its own service.",
-    code: "npx create-strapi@latest my-broker-cms\ncd my-broker-cms && npm run develop",
+    code: "npx create-strapi@latest my-cms\ncd my-cms && npm run develop",
     notes: [
       "Create an admin account at localhost:1337/admin",
       "Start defining your content types immediately",
@@ -102,7 +102,7 @@ const steps = [
     num: "09",
     title: "Init git and push",
     desc: "Full commit history is a hard requirement. Start tracking now.",
-    code: "git init\ngit add -A && git commit -m \"Initial scaffolding\"\ngh repo create my-broker-site --public --source=. --push",
+    code: "git init\ngit add -A && git commit -m \"Initial scaffolding\"\ngh repo create my-site --public --source=. --push",
     notes: [
       "Commit after every meaningful change",
       "Write descriptive commit messages — they're judged",
@@ -123,8 +123,11 @@ const steps = [
     <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] tracking-tighter leading-none mb-5">
       Getting Started
     </h1>
-    <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
-      Do all of this on Day 1 before you write a single component. Having a deployed, wired-up skeleton by end of day is the difference between finishing and not finishing.
+    <p class="text-sm leading-relaxed max-w-xl mb-3" style="color: var(--text-secondary);">
+      These are rough steps, not a recipe. Your setup, your decisions. Adapt as needed — the point is to have a deployed skeleton by end of Day 1, not to follow this verbatim.
+    </p>
+    <p class="text-xs leading-relaxed max-w-lg" style="color: var(--text-muted);">
+      Commands are examples. Font choices, folder structure, naming — all yours to figure out.
     </p>
   </section>
 

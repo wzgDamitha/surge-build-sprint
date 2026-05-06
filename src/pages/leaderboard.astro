@@ -7,7 +7,7 @@ const submissions = [
   {
     rank: 1,
     name: "Kavindu Perera",
-    company: "Asia Securities",
+    company: "Assigned Site A",
     total: 91,
     scores: { visual: 23, ai: 18, engineering: 19, performance: 14, content: 9, craft: 8 },
     deductions: 0,
@@ -18,7 +18,7 @@ const submissions = [
   {
     rank: 2,
     name: "Nethmi Fernando",
-    company: "JB Securities",
+    company: "Assigned Site B",
     total: 87,
     scores: { visual: 22, ai: 17, engineering: 18, performance: 13, content: 8, craft: 9 },
     deductions: 0,
@@ -29,7 +29,7 @@ const submissions = [
   {
     rank: 3,
     name: "Dinesh Rajapaksa",
-    company: "CT CLSA Securities",
+    company: "Assigned Site C",
     total: 84,
     scores: { visual: 21, ai: 16, engineering: 17, performance: 14, content: 8, craft: 8 },
     deductions: 0,
@@ -40,7 +40,7 @@ const submissions = [
   {
     rank: 4,
     name: "Sachini Wickrama",
-    company: "NDB Securities",
+    company: "Assigned Site D",
     total: 79,
     scores: { visual: 19, ai: 15, engineering: 16, performance: 13, content: 9, craft: 7 },
     deductions: 0,
@@ -51,7 +51,7 @@ const submissions = [
   {
     rank: 5,
     name: "Ashan Jayawardena",
-    company: "Softlogic Stockbrokers",
+    company: "Assigned Site E",
     total: 74,
     scores: { visual: 18, ai: 14, engineering: 15, performance: 12, content: 8, craft: 7 },
     deductions: 0,
@@ -71,6 +71,7 @@ const scoreLabels = [
 ];
 
 const isLive = false;
+const isLoading = true;
 ---
 
 <BaseLayout title="Leaderboard" description="Live rankings and scores for Surge Build Sprint participants.">
@@ -87,9 +88,11 @@ const isLive = false;
           Leaderboard
         </h1>
         <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
-          {isLive
-            ? "Live scores from the judging panel. Updated as results come in."
-            : "Scores will appear here after judging closes on June 4. This is preview data."
+          {isLoading
+            ? "Scores are being calculated. Results will appear here once judging is complete."
+            : isLive
+              ? "Live scores from the judging panel. Updated as results come in."
+              : "Scores will appear here after judging closes on May 11."
           }
         </p>
       </div>
@@ -98,138 +101,186 @@ const isLive = false;
           class="text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border"
           style="border-color: var(--border); color: var(--text-muted);"
         >
-          Preview
+          {isLoading ? "Awaiting Results" : "Preview"}
         </span>
       )}
     </div>
   </section>
 
-  <!-- TOP 3 -->
-  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-12">
-    <div class="grid md:grid-cols-3 gap-4">
-      {submissions.slice(0, 3).map((s) => (
-        <div
-          class:list={[
-            "rounded-xl border p-6 lg:p-8 relative overflow-hidden",
-            s.rank === 1 && "md:-mt-4 md:mb-4",
-          ]}
-          style={`border-color: var(--border); background: var(--bg-elevated);`}
-        >
-          {s.rank === 1 && (
-            <div class="absolute top-0 left-0 right-0 h-1 bg-surge"></div>
-          )}
-
-          <div class="flex items-start justify-between mb-4">
-            <span
-              class:list={[
-                "font-heading font-extrabold text-5xl tracking-tighter leading-none",
-                s.rank === 1 ? "text-surge" : "",
-              ]}
-              style={s.rank !== 1 ? "color: var(--text-dim);" : ""}
-            >
-              {s.rank}
-            </span>
-            <span class="font-heading font-bold text-3xl tracking-tight">{s.total}</span>
-          </div>
-
-          <h3 class="font-heading font-bold text-base mb-0.5">{s.name}</h3>
-          <p class="text-xs mb-5" style="color: var(--text-muted);">{s.company}</p>
-
-          <!-- Score bars -->
-          <div class="space-y-2">
-            {scoreLabels.map(({ key, label, max }) => (
-              <div class="flex items-center gap-2">
-                <span class="text-[10px] font-medium w-10 shrink-0" style="color: var(--text-muted);">{label}</span>
-                <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background: var(--bg-surface);">
-                  <div
-                    class="h-full rounded-full transition-all"
-                    style={`width: ${(s.scores[key as keyof typeof s.scores] / max) * 100}%; background: ${s.rank === 1 ? 'var(--color-surge)' : 'var(--text-muted)'};`}
-                  ></div>
+  {isLoading ? (
+    <!-- SKELETON STATE -->
+    <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-12">
+      <div class="grid md:grid-cols-3 gap-4">
+        {[1, 2, 3].map(() => (
+          <div
+            class="rounded-xl border p-6 lg:p-8"
+            style="border-color: var(--border); background: var(--bg-elevated);"
+          >
+            <div class="flex items-start justify-between mb-4">
+              <div class="skeleton w-12 h-12 rounded-md"></div>
+              <div class="skeleton w-10 h-8 rounded-md"></div>
+            </div>
+            <div class="skeleton w-32 h-4 rounded mb-2"></div>
+            <div class="skeleton w-24 h-3 rounded mb-5"></div>
+            <div class="space-y-3">
+              {[1, 2, 3, 4, 5, 6].map(() => (
+                <div class="flex items-center gap-2">
+                  <div class="skeleton w-10 h-2 rounded"></div>
+                  <div class="skeleton flex-1 h-1.5 rounded-full"></div>
+                  <div class="skeleton w-8 h-2 rounded"></div>
                 </div>
-                <span class="text-[10px] font-mono w-8 text-right shrink-0" style="color: var(--text-secondary);">
-                  {s.scores[key as keyof typeof s.scores]}/{max}
-                </span>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div class="flex gap-2 mt-5">
+              {[1, 2, 3, 4].map(() => (
+                <div class="skeleton flex-1 h-7 rounded-md"></div>
+              ))}
+            </div>
           </div>
-
-          <!-- Lighthouse -->
-          <div class="flex gap-2 mt-5">
-            {Object.entries(s.lighthouse).map(([key, val]) => (
-              <div
-                class="flex-1 text-center py-1.5 rounded-md text-[10px] font-mono font-medium"
-                style={`background: var(--bg-surface); color: ${val >= 95 ? 'var(--color-surge)' : 'var(--text-muted)'};`}
-              >
-                {val}
-              </div>
-            ))}
-          </div>
-          <div class="flex gap-2 mt-1">
-            {["P", "A", "BP", "SEO"].map((label) => (
-              <div class="flex-1 text-center text-[8px] font-medium uppercase" style="color: var(--text-dim);">
-                {label}
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- REST OF TABLE -->
-  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
-    <div
-      class="border rounded-xl overflow-hidden"
-      style="border-color: var(--border);"
-    >
-      <!-- Table header -->
-      <div
-        class="hidden lg:grid grid-cols-[60px_1fr_1fr_80px_repeat(6,50px)_80px] gap-2 px-5 py-3 text-[10px] font-semibold uppercase tracking-wider"
-        style="color: var(--text-muted); background: var(--bg-surface);"
-      >
-        <span>Rank</span>
-        <span>Name</span>
-        <span>Company</span>
-        <span class="text-right">Total</span>
-        {scoreLabels.map(({ label }) => (
-          <span class="text-center">{label}</span>
         ))}
-        <span class="text-center">Links</span>
       </div>
+    </section>
 
-      {submissions.slice(3).map((s, i) => (
-        <div
-          class:list={[
-            "grid lg:grid-cols-[60px_1fr_1fr_80px_repeat(6,50px)_80px] gap-2 lg:gap-2 items-center px-5 py-4 transition-colors hover:bg-[var(--card-hover)]",
-            i > 0 && "border-t",
-          ]}
-          style={i > 0 ? "border-color: var(--border);" : ""}
-        >
-          <span class="font-heading font-bold text-lg text-surge lg:text-base">{s.rank}</span>
-
-          <div class="lg:contents">
-            <span class="font-heading font-semibold text-[15px] lg:text-sm">{s.name}</span>
-            <span class="text-xs lg:text-sm" style="color: var(--text-secondary);">{s.company}</span>
-          </div>
-
-          <span class="font-heading font-bold text-lg lg:text-sm lg:text-right">{s.total}</span>
-
-          <div class="hidden lg:contents">
-            {scoreLabels.map(({ key }) => (
-              <span class="text-xs font-mono text-center" style="color: var(--text-secondary);">
-                {s.scores[key as keyof typeof s.scores]}
-              </span>
-            ))}
-          </div>
-
-          <div class="flex gap-3 lg:justify-center">
-            <a href={s.url} class="text-[11px] font-medium text-surge hover:underline">Site</a>
-            <a href={s.repo} class="text-[11px] font-medium hover:underline" style="color: var(--text-muted);">Repo</a>
-          </div>
+    <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+      <div
+        class="border rounded-xl overflow-hidden"
+        style="border-color: var(--border);"
+      >
+        <div class="px-5 py-3" style="background: var(--bg-surface);">
+          <div class="skeleton w-full h-3 rounded"></div>
         </div>
-      ))}
-    </div>
-  </section>
+        {[1, 2, 3, 4, 5].map((_, i) => (
+          <div
+            class:list={["px-5 py-5 flex items-center gap-4", i > 0 && "border-t"]}
+            style={i > 0 ? "border-color: var(--border);" : ""}
+          >
+            <div class="skeleton w-8 h-6 rounded"></div>
+            <div class="skeleton w-28 h-4 rounded"></div>
+            <div class="skeleton w-36 h-3 rounded"></div>
+            <div class="flex-1"></div>
+            <div class="skeleton w-10 h-4 rounded"></div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ) : (
+    <!-- TOP 3 -->
+    <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-12">
+      <div class="grid md:grid-cols-3 gap-4">
+        {submissions.slice(0, 3).map((s) => (
+          <div
+            class="rounded-xl border p-6 lg:p-8 relative overflow-hidden"
+            style="border-color: var(--border); background: var(--bg-elevated);"
+          >
+            <div class="flex items-start justify-between mb-4">
+              <span
+                class="font-heading font-extrabold text-5xl tracking-tighter leading-none"
+                style="color: var(--text-dim);"
+              >
+                {s.rank}
+              </span>
+              <span class="font-heading font-bold text-3xl tracking-tight">{s.total}</span>
+            </div>
+
+            <h3 class="font-heading font-bold text-base mb-0.5">{s.name}</h3>
+            <p class="text-xs mb-5" style="color: var(--text-muted);">{s.company}</p>
+
+            <!-- Score bars -->
+            <div class="space-y-2">
+              {scoreLabels.map(({ key, label, max }) => (
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-medium w-10 shrink-0" style="color: var(--text-muted);">{label}</span>
+                  <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background: var(--bg-surface);">
+                    <div
+                      class="h-full rounded-full transition-all"
+                      style={`width: ${(s.scores[key as keyof typeof s.scores] / max) * 100}%; background: var(--text-muted);`}
+                    ></div>
+                  </div>
+                  <span class="text-[10px] font-mono w-8 text-right shrink-0" style="color: var(--text-secondary);">
+                    {s.scores[key as keyof typeof s.scores]}/{max}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <!-- Lighthouse -->
+            <div class="flex gap-2 mt-5">
+              {Object.entries(s.lighthouse).map(([key, val]) => (
+                <div
+                  class="flex-1 text-center py-1.5 rounded-md text-[10px] font-mono font-medium"
+                  style={`background: var(--bg-surface); color: var(--text-muted);`}
+                >
+                  {val}
+                </div>
+              ))}
+            </div>
+            <div class="flex gap-2 mt-1">
+              {["P", "A", "BP", "SEO"].map((label) => (
+                <div class="flex-1 text-center text-[8px] font-medium uppercase" style="color: var(--text-dim);">
+                  {label}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- REST OF TABLE -->
+    <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+      <div
+        class="border rounded-xl overflow-hidden"
+        style="border-color: var(--border);"
+      >
+        <!-- Table header -->
+        <div
+          class="hidden lg:grid grid-cols-[60px_1fr_1fr_80px_repeat(6,50px)_80px] gap-2 px-5 py-3 text-[10px] font-semibold uppercase tracking-wider"
+          style="color: var(--text-muted); background: var(--bg-surface);"
+        >
+          <span>Rank</span>
+          <span>Name</span>
+          <span>Company</span>
+          <span class="text-right">Total</span>
+          {scoreLabels.map(({ label }) => (
+            <span class="text-center">{label}</span>
+          ))}
+          <span class="text-center">Links</span>
+        </div>
+
+        {submissions.slice(3).map((s, i) => (
+          <div
+            class:list={[
+              "grid lg:grid-cols-[60px_1fr_1fr_80px_repeat(6,50px)_80px] gap-2 lg:gap-2 items-center px-5 py-4 transition-colors hover:bg-[var(--card-hover)]",
+              i > 0 && "border-t",
+            ]}
+            style={i > 0 ? "border-color: var(--border);" : ""}
+          >
+            <span class="font-heading font-bold text-lg lg:text-base" style="color: var(--text-secondary);">{s.rank}</span>
+
+            <div class="lg:contents">
+              <span class="font-heading font-semibold text-[15px] lg:text-sm">{s.name}</span>
+              <span class="text-xs lg:text-sm" style="color: var(--text-secondary);">{s.company}</span>
+            </div>
+
+            <span class="font-heading font-bold text-lg lg:text-sm lg:text-right">{s.total}</span>
+
+            <div class="hidden lg:contents">
+              {scoreLabels.map(({ key }) => (
+                <span class="text-xs font-mono text-center" style="color: var(--text-secondary);">
+                  {s.scores[key as keyof typeof s.scores]}
+                </span>
+              ))}
+            </div>
+
+            <div class="flex gap-3 lg:justify-center">
+              <a href={s.url} class="text-[11px] font-medium text-surge hover:underline">Site</a>
+              <a href={s.repo} class="text-[11px] font-medium hover:underline" style="color: var(--text-muted);">Repo</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 
   <Footer slot="footer" />
 </BaseLayout>

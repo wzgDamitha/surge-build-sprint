@@ -1,12 +1,13 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "A 4-day hackathon by Surge. Build broker websites with AI. Make them not look like AI built them." } = Astro.props;
+const { title, description = "A 4-day hackathon by Surge. Build websites with AI. Make them not look like AI built them." } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,18 +16,28 @@ const { title, description = "A 4-day hackathon by Surge. Build broker websites 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title} | Surge Build Sprint</title>
 
+    <style is:inline>
+      html:not([data-theme]) body { visibility: hidden; }
+    </style>
     <script is:inline>
-      const saved = localStorage.getItem("theme");
-      const preferred = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", saved || preferred);
+      function applyTheme() {
+        const saved = localStorage.getItem("theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", saved || preferred);
+      }
+      applyTheme();
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
+
+    <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col">
     <slot name="header" />
-    <main class="flex-1">
+    <main class="flex-1" transition:animate="fade">
       <slot />
     </main>
     <slot name="footer" />

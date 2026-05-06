@@ -190,7 +190,15 @@ const isLoading = true;
               {scoreLabels.map(({ key, label, max }) => (
                 <div class="flex items-center gap-2">
                   <span class="text-[10px] font-medium w-10 shrink-0" style="color: var(--text-muted);">{label}</span>
-                  <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background: var(--bg-surface);">
+                  <div
+                    class="flex-1 h-1.5 rounded-full overflow-hidden"
+                    style="background: var(--bg-surface);"
+                    role="progressbar"
+                    aria-label={`${label} score`}
+                    aria-valuenow={s.scores[key as keyof typeof s.scores]}
+                    aria-valuemin={0}
+                    aria-valuemax={max}
+                  >
                     <div
                       class="h-full rounded-full transition-all"
                       style={`width: ${(s.scores[key as keyof typeof s.scores] / max) * 100}%; background: var(--text-muted);`}
@@ -273,8 +281,16 @@ const isLoading = true;
             </div>
 
             <div class="flex gap-3 lg:justify-center">
-              <a href={s.url} class="text-[11px] font-medium text-surge hover:underline">Site</a>
-              <a href={s.repo} class="text-[11px] font-medium hover:underline" style="color: var(--text-muted);">Repo</a>
+              {s.url !== "#" ? (
+                <a href={s.url} class="text-[11px] font-medium text-surge hover:underline" target="_blank" rel="noopener noreferrer">Site</a>
+              ) : (
+                <span class="text-[11px] font-medium" style="color: var(--text-dim);">Site</span>
+              )}
+              {s.repo !== "#" ? (
+                <a href={s.repo} class="text-[11px] font-medium hover:underline" style="color: var(--text-muted);" target="_blank" rel="noopener noreferrer">Repo</a>
+              ) : (
+                <span class="text-[11px] font-medium" style="color: var(--text-dim);">Repo</span>
+              )}
             </div>
           </div>
         ))}

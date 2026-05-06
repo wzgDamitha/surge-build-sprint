@@ -12,6 +12,8 @@ const { targetDate } = Astro.props;
   style="background: var(--bg-elevated); border-color: var(--border);"
   data-target={targetDate}
   aria-label="Countdown to event start"
+  aria-live="polite"
+  aria-atomic="true"
   role="timer"
 >
   <p

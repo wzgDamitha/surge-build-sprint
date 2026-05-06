@@ -30,7 +30,7 @@ import Footer from "../components/layout/Footer.astro";
         </p>
       </div>
 
-      <div class="space-y-1">
+      <div class="space-y-3">
         {[
           { num: "01", title: "Astro + Strapi, hosted on Railway", desc: "Both frontend and backend live on Railway." },
           { num: "02", title: "All content editable through Strapi", desc: "During judging, we will change a heading in your Strapi admin and expect to see it on the live site." },
@@ -44,15 +44,15 @@ import Footer from "../components/layout/Footer.astro";
           { num: "10", title: "Build the complete site", desc: "Every page in the scraped sitemap must exist. You cannot drop pages to save time." },
         ].map((rule) => (
           <div
-            class="grid grid-cols-[auto_1fr] gap-5 p-5 rounded-lg border transition-colors hover:bg-[var(--card-hover)]"
+            class="grid grid-cols-[auto_1fr] gap-5 p-6 rounded-lg border transition-colors hover:bg-[var(--card-hover)]"
             style="border-color: var(--border);"
           >
             <span class="font-heading font-bold text-2xl tracking-tight text-surge leading-none pt-0.5">
               {rule.num}
             </span>
             <div>
-              <h3 class="font-heading font-semibold text-[15px] mb-1">{rule.title}</h3>
-              <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">{rule.desc}</p>
+              <h3 class="font-heading font-semibold text-base mb-1.5">{rule.title}</h3>
+              <p class="text-[13px] leading-relaxed" style="color: var(--text-secondary);">{rule.desc}</p>
             </div>
           </div>
         ))}

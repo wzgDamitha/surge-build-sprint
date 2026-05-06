@@ -16,7 +16,7 @@ import Footer from "../components/layout/Footer.astro";
       The Stack
     </h1>
     <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
-      Four tools. All mandatory. Beyond these, use whatever helps you ship — but every extra dependency has to earn its place.
+      Five tools. All mandatory. Beyond these, use whatever helps you ship — but every extra dependency has to earn its place.
     </p>
   </section>
 
@@ -212,6 +212,75 @@ import Footer from "../components/layout/Footer.astro";
             style="color: var(--text-muted);"
           >
             Tutorials
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GITHUB -->
+    <div
+      class="mt-1 rounded-xl p-8 lg:p-10 grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12"
+      style="background: var(--bg-elevated); border: 1px solid var(--border);"
+    >
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div
+            class="w-10 h-10 rounded-lg flex items-center justify-center font-heading font-bold text-lg"
+            style="background: var(--accent-surface); color: var(--color-surge);"
+          >
+            G
+          </div>
+          <h2 class="font-heading font-bold text-2xl tracking-tight">GitHub</h2>
+        </div>
+        <p class="text-[13px] leading-relaxed mb-4" style="color: var(--text-secondary);">
+          Your repo is part of the submission. Full commit history is a hard requirement — no squashing, no single end-of-hackathon commit. Commit cadence reveals your workflow, and judges will review it. The repo must be public.
+        </p>
+        <div
+          class="rounded-lg p-4 font-mono text-[12px] leading-relaxed"
+          style="background: var(--bg-surface); color: var(--text-secondary);"
+        >
+          <span class="text-surge">$</span> git init && git remote add origin ...
+        </div>
+      </div>
+      <div class="flex flex-col justify-between">
+        <div
+          class="rounded-xl border p-6"
+          style="border-color: var(--border);"
+        >
+          <h3 class="font-heading font-semibold text-[15px] mb-3">What judges look at in your repo</h3>
+          <ul class="space-y-2">
+            {[
+              "Commit frequency and message quality",
+              "CLAUDE.md and agent configuration files",
+              "Component organization and architecture",
+              "Strapi schema design and content modeling",
+            ].map((item) => (
+              <li class="flex items-start gap-2 text-xs leading-relaxed" style="color: var(--text-secondary);">
+                <span class="text-surge mt-0.5 shrink-0">&bull;</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="flex items-center gap-4 mt-6">
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            GitHub
+          </a>
+          <span style="color: var(--text-dim);">|</span>
+          <a
+            href="https://docs.github.com/en/get-started"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Getting Started
           </a>
         </div>
       </div>

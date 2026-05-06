@@ -1,0 +1,204 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+
+const steps = [
+  {
+    num: "01",
+    title: "Scaffold Astro",
+    desc: "Start with the minimal template. TypeScript strict, no starter themes.",
+    code: "npm create astro@latest my-broker-site\ncd my-broker-site",
+    notes: [
+      "Pick \"Empty\" when prompted for a template",
+      "Say yes to TypeScript (strict)",
+      "Say yes to install dependencies",
+    ],
+  },
+  {
+    num: "02",
+    title: "Install Tailwind CSS",
+    desc: "Tailwind v4 uses a Vite plugin. No PostCSS config needed.",
+    code: "npm install tailwindcss @tailwindcss/vite",
+    notes: [
+      "Add @tailwindcss/vite to your astro.config.mjs vite plugins",
+      "Create src/styles/global.css with @import \"tailwindcss\"",
+      "Import the CSS file in your base layout",
+    ],
+  },
+  {
+    num: "03",
+    title: "Set up fonts",
+    desc: "Pick a deliberate pairing. Self-host via Fontsource for performance.",
+    code: "npm install @fontsource-variable/inter-tight\nnpm install @fontsource-variable/instrument-sans",
+    notes: [
+      "Import fonts in your global.css",
+      "Define --font-heading and --font-body in @theme",
+      "No Inter + Inter. Your font choice is scored.",
+    ],
+  },
+  {
+    num: "04",
+    title: "Initialize Strapi",
+    desc: "Separate project directory. Strapi runs as its own service.",
+    code: "npx create-strapi@latest my-broker-cms\ncd my-broker-cms && npm run develop",
+    notes: [
+      "Create an admin account at localhost:1337/admin",
+      "Start defining your content types immediately",
+      "Minimum 4 content types with at least 1 relation",
+    ],
+  },
+  {
+    num: "05",
+    title: "Model your content",
+    desc: "Schema design is part of the test. Think before you build.",
+    code: null,
+    notes: [
+      "Map out every page on the assigned site before creating types",
+      "Consider: Page, Section, TeamMember, Service, FAQ, etc.",
+      "Use components (repeatable) for sections within pages",
+      "Set up relations: e.g., TeamMember belongs to Department",
+      "Enter real content — judges will log in and edit it",
+    ],
+  },
+  {
+    num: "06",
+    title: "Wire Astro to Strapi",
+    desc: "Fetch at build time. Confirm one field renders before building pages.",
+    code: "// src/lib/strapi.ts\nconst res = await fetch(\n  `${import.meta.env.STRAPI_URL}/api/pages?populate=*`\n);\nconst { data } = await res.json();",
+    notes: [
+      "Create a .env with STRAPI_URL=http://localhost:1337",
+      "Build a small helper in src/lib/strapi.ts",
+      "Test with one page before wiring everything",
+      "Use Astro's getStaticPaths for dynamic routes",
+    ],
+  },
+  {
+    num: "07",
+    title: "Deploy to Railway",
+    desc: "Do this on Day 1. Not Day 4. Devs who wait always regret it.",
+    code: "railway login\nrailway up",
+    notes: [
+      "Create two Railway services: one for Astro, one for Strapi",
+      "Add a Postgres plugin for Strapi's database",
+      "Set environment variables (STRAPI_URL, DATABASE_URL, etc.)",
+      "Verify the live site loads before building more",
+    ],
+  },
+  {
+    num: "08",
+    title: "Set up your CLAUDE.md",
+    desc: "This file is scored. It's your specification layer for AI tooling.",
+    code: null,
+    notes: [
+      "Describe your design direction in concrete terms",
+      "List anti-patterns you want Claude to avoid",
+      "Define your component structure and naming conventions",
+      "Include the font pairing, color palette, spacing scale",
+      "Update it as your project evolves — it's a living document",
+    ],
+  },
+  {
+    num: "09",
+    title: "Init git and push",
+    desc: "Full commit history is a hard requirement. Start tracking now.",
+    code: "git init\ngit add -A && git commit -m \"Initial scaffolding\"\ngh repo create my-broker-site --public --source=. --push",
+    notes: [
+      "Commit after every meaningful change",
+      "Write descriptive commit messages — they're judged",
+      "Never squash. Never rebase to hide history.",
+    ],
+  },
+];
+---
+
+<BaseLayout title="Getting Started" description="Step-by-step setup guide for Surge Build Sprint participants.">
+  <Header slot="header" />
+
+  <!-- PAGE HEADER -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-12 lg:pt-28 lg:pb-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.15em] mb-4" style="color: var(--text-muted);">
+      Setup Guide
+    </p>
+    <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] tracking-tighter leading-none mb-5">
+      Getting Started
+    </h1>
+    <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
+      Do all of this on Day 1 before you write a single component. Having a deployed, wired-up skeleton by end of day is the difference between finishing and not finishing.
+    </p>
+  </section>
+
+  <!-- STEPS -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+    <div class="space-y-6">
+      {steps.map((step) => (
+        <div
+          class="grid lg:grid-cols-[80px_1fr] gap-4 lg:gap-8 p-6 lg:p-8 rounded-xl border transition-colors hover:bg-[var(--card-hover)]"
+          style="border-color: var(--border);"
+        >
+          <span class="font-heading font-extrabold text-4xl lg:text-5xl tracking-tighter leading-none text-surge">
+            {step.num}
+          </span>
+
+          <div>
+            <h2 class="font-heading font-bold text-xl tracking-tight mb-1">{step.title}</h2>
+            <p class="text-[13px] leading-relaxed mb-5" style="color: var(--text-secondary);">
+              {step.desc}
+            </p>
+
+            {step.code && (
+              <div
+                class="rounded-lg p-4 font-mono text-[12px] leading-[1.8] mb-5 overflow-x-auto"
+                style="background: var(--bg-surface); color: var(--text-secondary);"
+              >
+                {step.code.split("\n").map((line) => (
+                  <div>
+                    <span class="text-surge">$</span> {line}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <ul class="space-y-2">
+              {step.notes.map((note) => (
+                <li class="flex items-start gap-2.5 text-[13px] leading-relaxed" style="color: var(--text-secondary);">
+                  <span class="text-surge shrink-0 mt-0.5">&rarr;</span>
+                  {note}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- PREFLIGHT CHECKLIST -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+    <div
+      class="rounded-xl border p-8 lg:p-10"
+      style="background: var(--bg-elevated); border-color: var(--border);"
+    >
+      <h3 class="font-heading font-bold text-xl tracking-tight mb-6">End of Day 1 Checklist</h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {[
+          "Astro project scaffolded with Tailwind v4",
+          "Font pairing installed and rendering",
+          "Design direction committed (palette, spacing, radius)",
+          "Strapi running with content types defined",
+          "At least one page fetching data from Strapi",
+          "Both services deployed on Railway",
+          "Git repo initialized with clean commit history",
+          "CLAUDE.md written with project-specific instructions",
+        ].map((item) => (
+          <div class="flex items-start gap-3">
+            <div class="w-4 h-4 mt-0.5 rounded-sm border-2 border-surge shrink-0"></div>
+            <span class="text-[13px] leading-relaxed" style="color: var(--text-secondary);">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

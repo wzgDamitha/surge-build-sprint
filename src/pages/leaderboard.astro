@@ -1,0 +1,235 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+
+const submissions = [
+  {
+    rank: 1,
+    name: "Kavindu Perera",
+    company: "Asia Securities",
+    total: 91,
+    scores: { visual: 23, ai: 18, engineering: 19, performance: 14, content: 9, craft: 8 },
+    deductions: 0,
+    lighthouse: { perf: 98, a11y: 100, bp: 100, seo: 100 },
+    url: "#",
+    repo: "#",
+  },
+  {
+    rank: 2,
+    name: "Nethmi Fernando",
+    company: "JB Securities",
+    total: 87,
+    scores: { visual: 22, ai: 17, engineering: 18, performance: 13, content: 8, craft: 9 },
+    deductions: 0,
+    lighthouse: { perf: 97, a11y: 99, bp: 100, seo: 98 },
+    url: "#",
+    repo: "#",
+  },
+  {
+    rank: 3,
+    name: "Dinesh Rajapaksa",
+    company: "CT CLSA Securities",
+    total: 84,
+    scores: { visual: 21, ai: 16, engineering: 17, performance: 14, content: 8, craft: 8 },
+    deductions: 0,
+    lighthouse: { perf: 96, a11y: 98, bp: 100, seo: 99 },
+    url: "#",
+    repo: "#",
+  },
+  {
+    rank: 4,
+    name: "Sachini Wickrama",
+    company: "NDB Securities",
+    total: 79,
+    scores: { visual: 19, ai: 15, engineering: 16, performance: 13, content: 9, craft: 7 },
+    deductions: 0,
+    lighthouse: { perf: 95, a11y: 97, bp: 100, seo: 98 },
+    url: "#",
+    repo: "#",
+  },
+  {
+    rank: 5,
+    name: "Ashan Jayawardena",
+    company: "Softlogic Stockbrokers",
+    total: 74,
+    scores: { visual: 18, ai: 14, engineering: 15, performance: 12, content: 8, craft: 7 },
+    deductions: 0,
+    lighthouse: { perf: 96, a11y: 96, bp: 98, seo: 97 },
+    url: "#",
+    repo: "#",
+  },
+];
+
+const scoreLabels = [
+  { key: "visual", label: "Visual", max: 25 },
+  { key: "ai", label: "AI", max: 20 },
+  { key: "engineering", label: "Eng", max: 20 },
+  { key: "performance", label: "Perf", max: 15 },
+  { key: "content", label: "Copy", max: 10 },
+  { key: "craft", label: "Craft", max: 10 },
+];
+
+const isLive = false;
+---
+
+<BaseLayout title="Leaderboard" description="Live rankings and scores for Surge Build Sprint participants.">
+  <Header slot="header" />
+
+  <!-- PAGE HEADER -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-12 lg:pt-28 lg:pb-16">
+    <div class="flex items-start justify-between gap-4 flex-wrap">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.15em] mb-4" style="color: var(--text-muted);">
+          Rankings
+        </p>
+        <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] tracking-tighter leading-none mb-5">
+          Leaderboard
+        </h1>
+        <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
+          {isLive
+            ? "Live scores from the judging panel. Updated as results come in."
+            : "Scores will appear here after judging closes on June 4. This is preview data."
+          }
+        </p>
+      </div>
+      {!isLive && (
+        <span
+          class="text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border"
+          style="border-color: var(--border); color: var(--text-muted);"
+        >
+          Preview
+        </span>
+      )}
+    </div>
+  </section>
+
+  <!-- TOP 3 -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-12">
+    <div class="grid md:grid-cols-3 gap-4">
+      {submissions.slice(0, 3).map((s) => (
+        <div
+          class:list={[
+            "rounded-xl border p-6 lg:p-8 relative overflow-hidden",
+            s.rank === 1 && "md:-mt-4 md:mb-4",
+          ]}
+          style={`border-color: var(--border); background: var(--bg-elevated);`}
+        >
+          {s.rank === 1 && (
+            <div class="absolute top-0 left-0 right-0 h-1 bg-surge"></div>
+          )}
+
+          <div class="flex items-start justify-between mb-4">
+            <span
+              class:list={[
+                "font-heading font-extrabold text-5xl tracking-tighter leading-none",
+                s.rank === 1 ? "text-surge" : "",
+              ]}
+              style={s.rank !== 1 ? "color: var(--text-dim);" : ""}
+            >
+              {s.rank}
+            </span>
+            <span class="font-heading font-bold text-3xl tracking-tight">{s.total}</span>
+          </div>
+
+          <h3 class="font-heading font-bold text-base mb-0.5">{s.name}</h3>
+          <p class="text-xs mb-5" style="color: var(--text-muted);">{s.company}</p>
+
+          <!-- Score bars -->
+          <div class="space-y-2">
+            {scoreLabels.map(({ key, label, max }) => (
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-medium w-10 shrink-0" style="color: var(--text-muted);">{label}</span>
+                <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background: var(--bg-surface);">
+                  <div
+                    class="h-full rounded-full transition-all"
+                    style={`width: ${(s.scores[key as keyof typeof s.scores] / max) * 100}%; background: ${s.rank === 1 ? 'var(--color-surge)' : 'var(--text-muted)'};`}
+                  ></div>
+                </div>
+                <span class="text-[10px] font-mono w-8 text-right shrink-0" style="color: var(--text-secondary);">
+                  {s.scores[key as keyof typeof s.scores]}/{max}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <!-- Lighthouse -->
+          <div class="flex gap-2 mt-5">
+            {Object.entries(s.lighthouse).map(([key, val]) => (
+              <div
+                class="flex-1 text-center py-1.5 rounded-md text-[10px] font-mono font-medium"
+                style={`background: var(--bg-surface); color: ${val >= 95 ? 'var(--color-surge)' : 'var(--text-muted)'};`}
+              >
+                {val}
+              </div>
+            ))}
+          </div>
+          <div class="flex gap-2 mt-1">
+            {["P", "A", "BP", "SEO"].map((label) => (
+              <div class="flex-1 text-center text-[8px] font-medium uppercase" style="color: var(--text-dim);">
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- REST OF TABLE -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+    <div
+      class="border rounded-xl overflow-hidden"
+      style="border-color: var(--border);"
+    >
+      <!-- Table header -->
+      <div
+        class="hidden lg:grid grid-cols-[60px_1fr_1fr_80px_repeat(6,50px)_80px] gap-2 px-5 py-3 text-[10px] font-semibold uppercase tracking-wider"
+        style="color: var(--text-muted); background: var(--bg-surface);"
+      >
+        <span>Rank</span>
+        <span>Name</span>
+        <span>Company</span>
+        <span class="text-right">Total</span>
+        {scoreLabels.map(({ label }) => (
+          <span class="text-center">{label}</span>
+        ))}
+        <span class="text-center">Links</span>
+      </div>
+
+      {submissions.slice(3).map((s, i) => (
+        <div
+          class:list={[
+            "grid lg:grid-cols-[60px_1fr_1fr_80px_repeat(6,50px)_80px] gap-2 lg:gap-2 items-center px-5 py-4 transition-colors hover:bg-[var(--card-hover)]",
+            i > 0 && "border-t",
+          ]}
+          style={i > 0 ? "border-color: var(--border);" : ""}
+        >
+          <span class="font-heading font-bold text-lg text-surge lg:text-base">{s.rank}</span>
+
+          <div class="lg:contents">
+            <span class="font-heading font-semibold text-[15px] lg:text-sm">{s.name}</span>
+            <span class="text-xs lg:text-sm" style="color: var(--text-secondary);">{s.company}</span>
+          </div>
+
+          <span class="font-heading font-bold text-lg lg:text-sm lg:text-right">{s.total}</span>
+
+          <div class="hidden lg:contents">
+            {scoreLabels.map(({ key }) => (
+              <span class="text-xs font-mono text-center" style="color: var(--text-secondary);">
+                {s.scores[key as keyof typeof s.scores]}
+              </span>
+            ))}
+          </div>
+
+          <div class="flex gap-3 lg:justify-center">
+            <a href={s.url} class="text-[11px] font-medium text-surge hover:underline">Site</a>
+            <a href={s.repo} class="text-[11px] font-medium hover:underline" style="color: var(--text-muted);">Repo</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

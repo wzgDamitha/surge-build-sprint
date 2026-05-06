@@ -1,0 +1,83 @@
+---
+interface Props {
+  targetDate: string;
+}
+
+const { targetDate } = Astro.props;
+---
+
+<div
+  id="countdown"
+  class="rounded-xl border px-6 py-12 text-center"
+  style="background: var(--bg-elevated); border-color: var(--border);"
+  data-target={targetDate}
+>
+  <p
+    class="text-[10px] font-semibold uppercase tracking-[0.12em] mb-6"
+    style="color: var(--text-muted);"
+  >
+    Starts In
+  </p>
+
+  <div class="flex items-start justify-center gap-3 sm:gap-5">
+    <div class="text-center">
+      <div class="font-heading font-bold text-4xl sm:text-6xl tracking-tight leading-none" id="cd-days">--</div>
+      <div class="text-[10px] font-medium uppercase tracking-[0.12em] mt-2" style="color: var(--text-muted);">Days</div>
+    </div>
+    <div class="font-heading text-3xl sm:text-5xl leading-none pt-0.5" style="color: var(--text-dim);">:</div>
+    <div class="text-center">
+      <div class="font-heading font-bold text-4xl sm:text-6xl tracking-tight leading-none" id="cd-hours">--</div>
+      <div class="text-[10px] font-medium uppercase tracking-[0.12em] mt-2" style="color: var(--text-muted);">Hours</div>
+    </div>
+    <div class="font-heading text-3xl sm:text-5xl leading-none pt-0.5" style="color: var(--text-dim);">:</div>
+    <div class="text-center">
+      <div class="font-heading font-bold text-4xl sm:text-6xl tracking-tight leading-none" id="cd-min">--</div>
+      <div class="text-[10px] font-medium uppercase tracking-[0.12em] mt-2" style="color: var(--text-muted);">Min</div>
+    </div>
+    <div class="font-heading text-3xl sm:text-5xl leading-none pt-0.5" style="color: var(--text-dim);">:</div>
+    <div class="text-center">
+      <div class="font-heading font-bold text-4xl sm:text-6xl tracking-tight leading-none" id="cd-sec">--</div>
+      <div class="text-[10px] font-medium uppercase tracking-[0.12em] mt-2" style="color: var(--text-muted);">Sec</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCountdown() {
+    const el = document.getElementById("countdown");
+    if (!el) return;
+
+    const target = new Date(el.dataset.target || "").getTime();
+    const days = document.getElementById("cd-days");
+    const hours = document.getElementById("cd-hours");
+    const min = document.getElementById("cd-min");
+    const sec = document.getElementById("cd-sec");
+
+    function pad(n: number): string {
+      return n.toString().padStart(2, "0");
+    }
+
+    function tick() {
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (days) days.textContent = pad(d);
+      if (hours) hours.textContent = pad(h);
+      if (min) min.textContent = pad(m);
+      if (sec) sec.textContent = pad(s);
+
+      if (diff > 0) requestAnimationFrame(tick);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  initCountdown();
+  document.addEventListener("astro:after-swap", initCountdown);
+</script>

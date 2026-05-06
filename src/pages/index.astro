@@ -90,56 +90,24 @@ const targetDate = "2026-05-11T12:00:00+05:30";
 
   <!-- WHAT WE MEASURE -->
   <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border rounded-xl overflow-hidden"
-      style="border-color: var(--border);"
-    >
-      <div class="p-8 border-b lg:border-b-0 lg:border-r" style="border-color: var(--border);">
-        <h3 class="font-heading font-bold text-lg mb-1">What we score</h3>
-        <p class="text-[11px]" style="color: var(--text-muted);">100 points. 6 categories.</p>
-      </div>
-      <div
-        class="p-8 border-b lg:border-b-0 lg:border-r transition-colors hover:bg-[var(--card-hover)]"
-        style="border-color: var(--border);"
-      >
-        <div class="space-y-3">
-          <div>
-            <span class="font-heading font-bold text-2xl tracking-tight text-surge">25</span>
-            <p class="text-xs mt-0.5" style="color: var(--text-secondary);">Visual Craft</p>
-          </div>
-          <div>
-            <span class="font-heading font-bold text-2xl tracking-tight text-surge">20</span>
-            <p class="text-xs mt-0.5" style="color: var(--text-secondary);">AI Orchestration</p>
-          </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-1 rounded-xl overflow-hidden">
+      {[
+        { label: "Visual Craft", hint: "Does it look human-built?" },
+        { label: "AI Orchestration", hint: "How well did you direct the machine?" },
+        { label: "Engineering", hint: "Schema, components, code clarity." },
+        { label: "Performance", hint: "Lighthouse scores. Real-world feel." },
+        { label: "Content & Copy", hint: "Written, not generated." },
+        { label: "Custom Craft", hint: "The hand-built thing. Does it land?" },
+      ].map((item) => (
+        <div
+          class="p-6 lg:p-8 transition-colors hover:bg-[var(--card-hover)]"
+          style="background: var(--bg-elevated);"
+        >
+          <span class="text-surge text-[10px] font-semibold uppercase tracking-widest">&mdash;</span>
+          <h3 class="font-heading font-bold text-base tracking-tight mt-2 mb-1.5">{item.label}</h3>
+          <p class="text-xs leading-relaxed" style="color: var(--text-muted);">{item.hint}</p>
         </div>
-      </div>
-      <div
-        class="p-8 border-b sm:border-r lg:border-b-0 lg:border-r transition-colors hover:bg-[var(--card-hover)]"
-        style="border-color: var(--border);"
-      >
-        <div class="space-y-3">
-          <div>
-            <span class="font-heading font-bold text-2xl tracking-tight text-surge">20</span>
-            <p class="text-xs mt-0.5" style="color: var(--text-secondary);">Engineering</p>
-          </div>
-          <div>
-            <span class="font-heading font-bold text-2xl tracking-tight text-surge">15</span>
-            <p class="text-xs mt-0.5" style="color: var(--text-secondary);">Performance & A11y</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-8 transition-colors hover:bg-[var(--card-hover)]">
-        <div class="space-y-3">
-          <div>
-            <span class="font-heading font-bold text-2xl tracking-tight text-surge">10</span>
-            <p class="text-xs mt-0.5" style="color: var(--text-secondary);">Content & Copy</p>
-          </div>
-          <div>
-            <span class="font-heading font-bold text-2xl tracking-tight text-surge">10</span>
-            <p class="text-xs mt-0.5" style="color: var(--text-secondary);">Custom Craft</p>
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   </section>
 

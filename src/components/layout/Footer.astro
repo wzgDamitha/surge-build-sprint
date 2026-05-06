@@ -1,0 +1,85 @@
+---
+const footerSections = [
+  {
+    label: "Pages",
+    links: [
+      { text: "Rules", href: "/rules" },
+      { text: "Stack", href: "/stack" },
+      { text: "Schedule", href: "/schedule" },
+      { text: "FAQ", href: "/faq" },
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      { text: "Astro Docs", href: "https://docs.astro.build" },
+      { text: "Strapi Docs", href: "https://docs.strapi.io" },
+      { text: "Railway", href: "https://railway.app" },
+      { text: "Claude Code", href: "https://docs.anthropic.com/en/docs/claude-code" },
+    ],
+  },
+  {
+    label: "Surge",
+    links: [
+      { text: "Website", href: "https://surge.global" },
+      { text: "LinkedIn", href: "https://linkedin.com/company/surgeglobal" },
+    ],
+  },
+];
+---
+
+<footer
+  class="border-t mt-auto"
+  style="border-color: var(--border); background: var(--bg-elevated);"
+>
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-12 pb-6">
+    <!-- Brand -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <svg width="14" height="20" viewBox="0 0 18 24" fill="none">
+          <polygon points="10,0 0,14 8,14 7,24 18,10 10,10" fill="#ED1C24"/>
+        </svg>
+        <span class="font-heading font-bold text-[15px]">surge build sprint</span>
+      </div>
+      <p class="text-xs max-w-sm leading-relaxed" style="color: var(--text-muted);">
+        A 4-day hackathon by Surge. Build broker websites with AI. Make them not look like AI built them.
+      </p>
+    </div>
+
+    <!-- Link rows -->
+    {footerSections.map((section) => (
+      <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-4 border-t gap-2"
+        style="border-color: var(--border);"
+      >
+        <span class="font-heading font-semibold text-[13px]">{section.label}</span>
+        <div class="flex flex-wrap gap-x-6 gap-y-1">
+          {section.links.map((link) => (
+            <a
+              href={link.href}
+              class="text-xs transition-colors hover:text-[var(--text-primary)]"
+              style="color: var(--text-secondary);"
+              target={link.href.startsWith("http") ? "_blank" : undefined}
+              rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            >
+              {link.text}
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <!-- Bottom -->
+    <div
+      class="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-4 mt-4 border-t gap-2"
+      style="border-color: var(--border);"
+    >
+      <span class="text-[11px]" style="color: var(--text-muted);">
+        Built by Surge, Colombo
+      </span>
+      <span class="text-[11px]" style="color: var(--text-muted);">
+        Powered by Astro + Strapi + Railway
+      </span>
+    </div>
+  </div>
+</footer>

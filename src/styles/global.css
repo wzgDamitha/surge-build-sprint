@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter-tight";
+@import "@fontsource-variable/instrument-sans";
+
+@theme {
+  /* ---- COLORS ---- */
+  --color-surge: #ED1C24;
+  --color-surge-dark: #C41920;
+  --color-surge-deep: #8B0000;
+  --color-surge-glow: rgba(237, 28, 36, 0.12);
+  --color-surge-soft: rgba(237, 28, 36, 0.06);
+
+  /* ---- FONTS ---- */
+  --font-heading: "Inter Tight Variable", "Inter Tight", sans-serif;
+  --font-body: "Instrument Sans Variable", "Instrument Sans", sans-serif;
+
+  /* ---- BORDER RADIUS ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 100px;
+}
+
+/* ============================================
+   CSS CUSTOM PROPERTIES (THEME TOKENS)
+   ============================================ */
+:root {
+  color-scheme: dark;
+
+  --bg: #0A0A0A;
+  --bg-elevated: #111111;
+  --bg-surface: #1A1A1A;
+  --bg-surface-2: #222222;
+  --border: #2A2A2A;
+  --border-light: #333333;
+  --text-primary: #F0F0F0;
+  --text-secondary: #A0A0A0;
+  --text-muted: #666666;
+  --text-dim: #444444;
+  --nav-bg: rgba(10, 10, 10, 0.85);
+  --card-hover: #1E1E1E;
+  --accent-surface: rgba(237, 28, 36, 0.1);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #FFFFFF;
+  --bg-elevated: #F8F8F8;
+  --bg-surface: #F2F2F2;
+  --bg-surface-2: #EAEAEA;
+  --border: #E0E0E0;
+  --border-light: #EBEBEB;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --text-muted: #999999;
+  --text-dim: #CCCCCC;
+  --nav-bg: rgba(255, 255, 255, 0.88);
+  --card-hover: #F5F5F5;
+  --accent-surface: rgba(237, 28, 36, 0.06);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background: var(--color-surge);
+  color: white;
+}
+
+/* ============================================
+   SCROLLBAR (subtle, dark)
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* ============================================
+   FOCUS STYLES
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--color-surge);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   TRANSITION UTILITY
+   ============================================ */
+.theme-transition * {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+}

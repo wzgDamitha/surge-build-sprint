@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+
+const days = [
+  {
+    number: 1,
+    title: "Foundation",
+    date: "June 1",
+    focus: "Strapi content modeling, design direction, framework setup, first deploy to Railway.",
+    milestones: [
+      { time: "09:00", label: "Kick-off", detail: "Receive your assigned company and scraped content." },
+      { time: "09:30", label: "Setup", detail: "Astro + Strapi initialized, Railway projects created." },
+      { time: "12:00", label: "Schema", detail: "Strapi content types defined, test data entered." },
+      { time: "15:00", label: "Design direction locked", detail: "Font pairing, palette, and layout approach committed." },
+      { time: "18:00", label: "First deploy", detail: "Bare site live on Railway. This is your safety net." },
+    ],
+  },
+  {
+    number: 2,
+    title: "Core Build",
+    date: "June 2",
+    focus: "Pages, components, content wiring. This is the heaviest day.",
+    milestones: [
+      { time: "09:00", label: "Page structure", detail: "All routes created, layout components in place." },
+      { time: "12:00", label: "Content wired", detail: "Strapi data flowing into at least half the pages." },
+      { time: "15:00", label: "Component library", detail: "Core components built: nav, cards, sections, footer." },
+      { time: "18:00", label: "Full content", detail: "All pages rendering real content from Strapi." },
+    ],
+  },
+  {
+    number: 3,
+    title: "Polish",
+    date: "June 3",
+    focus: "Interactions, custom-craft element, content and copy pass.",
+    milestones: [
+      { time: "09:00", label: "Custom-craft element", detail: "Start your hand-built piece. This is what separates you." },
+      { time: "12:00", label: "Interactions", detail: "Hover states, transitions, scroll behaviors, animations." },
+      { time: "15:00", label: "Content pass", detail: "Read every line of copy out loud. Cut anything AI-flavored." },
+      { time: "18:00", label: "Responsive check", detail: "Test on real devices. Sri Lankan mobile networks are slow." },
+    ],
+  },
+  {
+    number: 4,
+    title: "Ship & Judge",
+    date: "June 4",
+    focus: "Performance, accessibility, final deploy, submission, judging.",
+    milestones: [
+      { time: "09:00", label: "Lighthouse audit", detail: "Fix everything until mobile scores hit 95+ across all four." },
+      { time: "10:00", label: "Final deploy", detail: "Last push to Railway. Verify everything works." },
+      { time: "11:00", label: "Submission", detail: "Submit live URL, Strapi creds, repo, SUBMISSION.md, video." },
+      { time: "13:00", label: "Judging begins", detail: "~15 minutes per participant. Video, live browse, code review, Q&A." },
+      { time: "17:00", label: "Results", detail: "Scores posted. Top 3 announced." },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Schedule" description="Day-by-day breakdown and judging timeline for Surge Build Sprint.">
+  <Header slot="header" />
+
+  <!-- PAGE HEADER -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-12 lg:pt-28 lg:pb-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.15em] mb-4" style="color: var(--text-muted);">
+      Timeline
+    </p>
+    <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] tracking-tighter leading-none mb-5">
+      4 Days. Hard Deadline.
+    </h1>
+    <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
+      Deploy early. Devs who delay deployment until Day 4 always regret it.
+    </p>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+    <div class="space-y-12 lg:space-y-16">
+      {days.map((day) => (
+        <div class="grid lg:grid-cols-[200px_1fr] gap-6 lg:gap-12">
+          <!-- Day label -->
+          <div class="lg:sticky lg:top-24 lg:self-start">
+            <div class="flex items-baseline gap-3 lg:flex-col lg:gap-1">
+              <span class="font-heading font-extrabold text-6xl lg:text-7xl tracking-tighter leading-none text-surge">
+                {day.number}
+              </span>
+              <div>
+                <h2 class="font-heading font-bold text-xl tracking-tight">{day.title}</h2>
+                <p class="text-xs mt-1" style="color: var(--text-muted);">{day.date}</p>
+              </div>
+            </div>
+            <p class="text-xs leading-relaxed mt-3 hidden lg:block" style="color: var(--text-secondary);">
+              {day.focus}
+            </p>
+          </div>
+
+          <!-- Milestones -->
+          <div
+            class="border rounded-xl overflow-hidden"
+            style="border-color: var(--border);"
+          >
+            {day.milestones.map((ms, i) => (
+              <div
+                class:list={[
+                  "grid grid-cols-[60px_1fr] sm:grid-cols-[80px_1fr] gap-4 p-5 transition-colors hover:bg-[var(--card-hover)]",
+                  i > 0 && "border-t",
+                ]}
+                style={i > 0 ? "border-color: var(--border);" : ""}
+              >
+                <span class="font-mono text-xs pt-0.5" style="color: var(--text-muted);">
+                  {ms.time}
+                </span>
+                <div>
+                  <h3 class="font-heading font-semibold text-[15px] mb-1">{ms.label}</h3>
+                  <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">{ms.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

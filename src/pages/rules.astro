@@ -1,0 +1,209 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+---
+
+<BaseLayout title="Rules" description="Hard requirements, scoring criteria, and judging format for Surge Build Sprint.">
+  <Header slot="header" />
+
+  <!-- PAGE HEADER -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-12 lg:pt-28 lg:pb-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.15em] mb-4" style="color: var(--text-muted);">
+      The Brief
+    </p>
+    <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] tracking-tighter leading-none mb-5">
+      Rules & Scoring
+    </h1>
+    <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
+      This is not a "ship fast" hackathon. Speed is assumed. What we're measuring is harder: taste, AI fluency, and full-stack orchestration.
+    </p>
+  </section>
+
+  <!-- HARD REQUIREMENTS -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24">
+    <div class="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
+      <div>
+        <h2 class="font-heading font-bold text-xl tracking-tight mb-2">Hard Requirements</h2>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+          Failing any of these disqualifies you from top placement.
+        </p>
+      </div>
+
+      <div class="space-y-1">
+        {[
+          { num: "01", title: "Astro + Strapi, hosted on Railway", desc: "Both frontend and backend live on Railway." },
+          { num: "02", title: "All content editable through Strapi", desc: "During judging, we will change a heading in your Strapi admin and expect to see it on the live site." },
+          { num: "03", title: "Minimum 4 content types with relations", desc: "At least one relation between content types. Schema design is part of the test." },
+          { num: "04", title: "Lighthouse mobile scores >= 95", desc: "Performance, Accessibility, Best Practices, and SEO. Tested on a throttled connection." },
+          { num: "05", title: "No pre-built component libraries", desc: "No shadcn, DaisyUI, Material UI, Mantine, Chakra. Tailwind is fine. Headless primitives for a11y are fine." },
+          { num: "06", title: "No starter templates", desc: "Beyond create astro defaults. Your first commit gets checked." },
+          { num: "07", title: "One custom-craft element", desc: "Something where AI gets you 70% and the last 30% is you. Document which element this is." },
+          { num: "08", title: "Custom font pairing", desc: "No Inter + Inter. Pick fonts deliberately and be ready to justify them." },
+          { num: "09", title: "Full git history", desc: "No squashing, no single end-of-hackathon commit. Commit cadence reveals workflow." },
+          { num: "10", title: "Build the complete site", desc: "Every page in the scraped sitemap must exist. You cannot drop pages to save time." },
+        ].map((rule) => (
+          <div
+            class="grid grid-cols-[auto_1fr] gap-5 p-5 rounded-lg border transition-colors hover:bg-[var(--card-hover)]"
+            style="border-color: var(--border);"
+          >
+            <span class="font-heading font-bold text-2xl tracking-tight text-surge leading-none pt-0.5">
+              {rule.num}
+            </span>
+            <div>
+              <h3 class="font-heading font-semibold text-[15px] mb-1">{rule.title}</h3>
+              <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">{rule.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORING -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24">
+    <div class="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
+      <div>
+        <h2 class="font-heading font-bold text-xl tracking-tight mb-2">Scoring</h2>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+          100 points total. No speed bonus. No quantity bonus.
+        </p>
+      </div>
+
+      <div>
+        <div
+          class="border rounded-xl overflow-hidden"
+          style="border-color: var(--border);"
+        >
+          {[
+            { category: "Visual Craft", weight: "25", detail: "Does it look human-built? Typography, spacing, color, rhythm, asymmetry, considered details." },
+            { category: "AI Orchestration", weight: "20", detail: "Quality of CLAUDE.md, prompt history, agent setup, evidence of good specification." },
+            { category: "Engineering Quality", weight: "20", detail: "Schema design, component architecture, code clarity, repo hygiene." },
+            { category: "Performance & Accessibility", weight: "15", detail: "Lighthouse scores, real-world feel, semantic HTML." },
+            { category: "Content & Copy", weight: "10", detail: "Does the writing feel written or LLM-flavored?" },
+            { category: "Custom-Craft Element", weight: "10", detail: "The hand-built thing. Does it land?" },
+          ].map((row, i) => (
+            <div
+              class:list={[
+                "grid grid-cols-[auto_1fr] gap-6 p-5",
+                i > 0 && "border-t",
+              ]}
+              style={i > 0 ? "border-color: var(--border);" : ""}
+            >
+              <div class="w-14 text-right">
+                <span class="font-heading font-bold text-2xl tracking-tight leading-none">
+                  {row.weight}
+                </span>
+                <span class="text-[10px] font-medium" style="color: var(--text-muted);">pts</span>
+              </div>
+              <div>
+                <h3 class="font-heading font-semibold text-[15px] mb-1">{row.category}</h3>
+                <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">{row.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI SMELL DEDUCTIONS -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24">
+    <div class="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
+      <div>
+        <h2 class="font-heading font-bold text-xl tracking-tight mb-2">The "AI Smell" Deduction</h2>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+          1-3 points per tell, depending on severity. These are independent of category scores.
+        </p>
+      </div>
+
+      <div
+        class="rounded-xl border p-6 lg:p-8"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <ul class="space-y-3">
+          {[
+            "Generic shadcn-style components, even reimplemented",
+            "Default Tailwind spacing throughout (no rhythm decisions)",
+            "Slate/zinc-only palette with one accent",
+            "Icons used as decoration rather than function",
+            "Centered-stack hero, 3 feature cards, testimonial, CTA layout",
+            'LLM-flavored copy ("Empower your...", "Seamlessly...", "Unlock the power of...")',
+            "Gradient backgrounds with no purpose",
+            "Stock-photo-feeling imagery",
+          ].map((tell) => (
+            <li class="flex items-start gap-3 text-[13px] leading-relaxed" style="color: var(--text-secondary);">
+              <span class="text-surge font-bold text-xs mt-0.5 shrink-0">&mdash;</span>
+              {tell}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- JUDGING FORMAT -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24">
+    <div class="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
+      <div>
+        <h2 class="font-heading font-bold text-xl tracking-tight mb-2">Judging</h2>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+          Day 4 afternoon. ~15 minutes per participant.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-1">
+        {[
+          { time: "3 min", label: "Walkthrough", desc: "Your pre-recorded video plays for the judges." },
+          { time: "5 min", label: "Live Browse", desc: "Judges explore the live site and Strapi admin." },
+          { time: "5 min", label: "Code Review", desc: "A judge picks a random file. You explain it." },
+          { time: "2 min", label: "Q&A", desc: "Final questions about decisions you made." },
+        ].map((step) => (
+          <div
+            class="p-6 rounded-lg border transition-colors hover:bg-[var(--card-hover)]"
+            style="border-color: var(--border);"
+          >
+            <span class="font-heading font-bold text-3xl tracking-tight leading-none text-surge">{step.time}</span>
+            <h3 class="font-heading font-semibold text-[15px] mt-3 mb-1">{step.label}</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBMISSION CHECKLIST -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+    <div class="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
+      <div>
+        <h2 class="font-heading font-bold text-xl tracking-tight mb-2">What You Submit</h2>
+        <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+          All of these are required.
+        </p>
+      </div>
+
+      <div
+        class="rounded-xl border p-6 lg:p-8"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <div class="space-y-4">
+          {[
+            "Live deployed URL (Railway)",
+            "Strapi admin URL + judging credentials",
+            "Public GitHub repo with full commit history",
+            "CLAUDE.md and any agent setup files",
+            "SUBMISSION.md covering workflow, delegation, overrides, and your custom-craft element",
+            "3-minute screen-recorded walkthrough of architecture and key decisions",
+          ].map((item) => (
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-4 mt-0.5 rounded-sm border-2 border-surge shrink-0"></div>
+              <span class="text-[13px] leading-relaxed" style="color: var(--text-secondary);">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

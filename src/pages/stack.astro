@@ -1,0 +1,271 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+---
+
+<BaseLayout title="Stack" description="The required tech stack for Surge Build Sprint: Astro, Strapi, Railway, and Claude Code.">
+  <Header slot="header" />
+
+  <!-- PAGE HEADER -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-12 lg:pt-28 lg:pb-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.15em] mb-4" style="color: var(--text-muted);">
+      Required Tools
+    </p>
+    <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] tracking-tighter leading-none mb-5">
+      The Stack
+    </h1>
+    <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
+      Four tools. All mandatory. Beyond these, use whatever helps you ship — but every extra dependency has to earn its place.
+    </p>
+  </section>
+
+  <!-- STACK GRID -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+    <div class="grid md:grid-cols-2 gap-1 rounded-xl overflow-hidden">
+
+      <!-- ASTRO -->
+      <div
+        class="p-8 lg:p-10 flex flex-col justify-between min-h-[340px] border-b md:border-b-0 md:border-r"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center font-heading font-bold text-lg"
+              style="background: var(--accent-surface); color: var(--color-surge);"
+            >
+              A
+            </div>
+            <h2 class="font-heading font-bold text-2xl tracking-tight">Astro</h2>
+          </div>
+          <p class="text-[13px] leading-relaxed mb-4" style="color: var(--text-secondary);">
+            Content-first frontend framework. Ships zero JavaScript by default. Use islands architecture for interactivity only where genuinely needed — a contact form, an animated chart, a live ticker. Everything else is static HTML.
+          </p>
+          <div
+            class="rounded-lg p-4 font-mono text-[12px] leading-relaxed mb-6"
+            style="background: var(--bg-surface); color: var(--text-secondary);"
+          >
+            <span class="text-surge">$</span> npm create astro@latest
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="https://docs.astro.build"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Docs
+          </a>
+          <span style="color: var(--text-dim);">|</span>
+          <a
+            href="https://astro.build/themes/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Themes (for inspiration, not use)
+          </a>
+        </div>
+      </div>
+
+      <!-- STRAPI -->
+      <div
+        class="p-8 lg:p-10 flex flex-col justify-between min-h-[340px]"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center font-heading font-bold text-lg"
+              style="background: var(--accent-surface); color: var(--color-surge);"
+            >
+              S
+            </div>
+            <h2 class="font-heading font-bold text-2xl tracking-tight">Strapi</h2>
+          </div>
+          <p class="text-[13px] leading-relaxed mb-4" style="color: var(--text-secondary);">
+            Headless CMS. All site content must live here and be editable by a non-developer. During judging, we will log into your admin, change a heading, and expect to see it reflected on the live site. Schema design is part of the test — minimum 4 content types with at least one relation.
+          </p>
+          <div
+            class="rounded-lg p-4 font-mono text-[12px] leading-relaxed mb-6"
+            style="background: var(--bg-surface); color: var(--text-secondary);"
+          >
+            <span class="text-surge">$</span> npx create-strapi@latest
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="https://docs.strapi.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Docs
+          </a>
+          <span style="color: var(--text-dim);">|</span>
+          <a
+            href="https://docs.strapi.io/dev-docs/api/rest"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            REST API Reference
+          </a>
+        </div>
+      </div>
+
+      <!-- RAILWAY -->
+      <div
+        class="p-8 lg:p-10 flex flex-col justify-between min-h-[340px] border-t md:border-r"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center font-heading font-bold text-lg"
+              style="background: var(--accent-surface); color: var(--color-surge);"
+            >
+              R
+            </div>
+            <h2 class="font-heading font-bold text-2xl tracking-tight">Railway</h2>
+          </div>
+          <p class="text-[13px] leading-relaxed mb-4" style="color: var(--text-secondary);">
+            Hosting platform for both Astro and Strapi. Deploy early — we strongly recommend having a working version on Railway by end of Day 1, even if it's bare. Devs who delay deployment until Day 4 always regret it.
+          </p>
+          <div
+            class="rounded-lg p-4 font-mono text-[12px] leading-relaxed mb-6"
+            style="background: var(--bg-surface); color: var(--text-secondary);"
+          >
+            <span class="text-surge">$</span> railway up
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="https://railway.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Railway
+          </a>
+          <span style="color: var(--text-dim);">|</span>
+          <a
+            href="https://docs.railway.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Docs
+          </a>
+        </div>
+      </div>
+
+      <!-- CLAUDE CODE -->
+      <div
+        class="p-8 lg:p-10 flex flex-col justify-between min-h-[340px] border-t"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center font-heading font-bold text-lg"
+              style="background: var(--accent-surface); color: var(--color-surge);"
+            >
+              C
+            </div>
+            <h2 class="font-heading font-bold text-2xl tracking-tight">Claude Code</h2>
+          </div>
+          <p class="text-[13px] leading-relaxed mb-4" style="color: var(--text-secondary);">
+            Your primary development tool. You're expected to use it heavily — but "use AI" does not mean "accept whatever AI generates." Your CLAUDE.md, your prompt patterns, and your ability to direct and override are all part of what we're scoring.
+          </p>
+          <div
+            class="rounded-lg p-4 font-mono text-[12px] leading-relaxed mb-6"
+            style="background: var(--bg-surface); color: var(--text-secondary);"
+          >
+            <span class="text-surge">$</span> claude
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="https://docs.anthropic.com/en/docs/claude-code"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Docs
+          </a>
+          <span style="color: var(--text-dim);">|</span>
+          <a
+            href="https://docs.anthropic.com/en/docs/claude-code/tutorials"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium transition-colors hover:text-[var(--text-primary)]"
+            style="color: var(--text-muted);"
+          >
+            Tutorials
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S ALLOWED -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div
+        class="rounded-xl border p-8"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <h3 class="font-heading font-bold text-lg tracking-tight mb-4">Allowed</h3>
+        <ul class="space-y-3">
+          {[
+            "Tailwind CSS, vanilla CSS, CSS Modules",
+            "Headless primitives for a11y (Radix primitives, Headless UI)",
+            "Icon libraries (Lucide, Phosphor, Tabler — pick one)",
+            "AI image generators (document which tool)",
+            "Other AI assistants for copy, research, debugging",
+            "Animation libraries (GSAP, Framer Motion, etc.)",
+            "Any font from Google Fonts or Fontsource",
+          ].map((item) => (
+            <li class="flex items-start gap-3 text-[13px] leading-relaxed" style="color: var(--text-secondary);">
+              <span class="text-surge font-bold shrink-0">+</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div
+        class="rounded-xl border p-8"
+        style="background: var(--bg-elevated); border-color: var(--border);"
+      >
+        <h3 class="font-heading font-bold text-lg tracking-tight mb-4">Prohibited</h3>
+        <ul class="space-y-3">
+          {[
+            "shadcn/ui, DaisyUI, Material UI, Mantine, Chakra",
+            "Radix Themes, Park UI, or any styled component library",
+            "Starter templates beyond create astro defaults",
+            "Pre-built page layouts or theme kits",
+            "Help from another human on the build itself",
+          ].map((item) => (
+            <li class="flex items-start gap-3 text-[13px] leading-relaxed" style="color: var(--text-secondary);">
+              <span class="font-bold shrink-0" style="color: var(--text-muted);">&times;</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
